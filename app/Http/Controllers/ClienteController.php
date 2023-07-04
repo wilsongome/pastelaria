@@ -11,6 +11,18 @@ class ClienteController extends Controller
 
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'nome' => 'required|max:255',
+            'email' => 'required|email|unique:clientes|max:255',
+            'telefone' => 'required|max:11',
+            'data_nascimento' => 'required|date|date_format:Y-m-d|max:10',
+            'endereco' => 'required|max:255',
+            'complemento' => 'max:255',
+            'bairro' => 'required|max:255',
+            'cep' => 'required|max:9',
+            'ativo' => 'boolean',
+        ]);
+
         try{
             $cliente = Cliente::create($request->all());
             if(!$cliente){
@@ -25,6 +37,11 @@ class ClienteController extends Controller
 
     public function show(Request $request)
     {
+        $request->merge(['id' => $request->route('id')]);
+        $this->validate($request, [
+            'id' => 'required|integer'
+        ]);
+
         try{
             $cliente = Cliente::find($request->id);
             $status = 200;
@@ -40,6 +57,20 @@ class ClienteController extends Controller
 
     public function update(Request $request)
     {
+        $request->merge(['id' => $request->route('id')]);
+        $this->validate($request, [
+            'id' => 'required|integer',
+            'nome' => 'max:255',
+            'email' => 'email|unique:clientes|max:255',
+            'telefone' => 'max:11',
+            'data_nascimento' => 'date|date_format:Y-m-d|max:10',
+            'endereco' => 'max:255',
+            'complemento' => 'max:255',
+            'bairro' => 'max:255',
+            'cep' => 'max:9',
+            'ativo' => 'boolean',
+        ]);
+
         try{
             $cliente = Cliente::find($request->id);
             if(!$cliente){
@@ -74,6 +105,10 @@ class ClienteController extends Controller
 
     public function delete(Request $request)
     {
+        $this->validate($request, [
+            'id' => 'required|integer'
+        ]);
+
         try{
             $cliente = Cliente::find($request->id);
             if(!$cliente){
