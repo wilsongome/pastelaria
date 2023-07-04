@@ -2,33 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Produto;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
-class ClienteController extends Controller
+class ProdutoController extends Controller
 {
-
     public function create(Request $request)
     {
         $this->validate($request, [
             'nome' => 'required|max:255',
-            'email' => 'required|email|unique:clientes|max:255',
-            'telefone' => 'required|max:11',
-            'data_nascimento' => 'required|date|date_format:Y-m-d|max:10',
-            'endereco' => 'required|max:255',
-            'complemento' => 'max:255',
-            'bairro' => 'required|max:255',
-            'cep' => 'required|max:9',
-            'ativo' => 'boolean',
+            'preco' => 'required|decimal:2',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,gif',
+            'tipo_produto_id' => 'required|integer',
         ]);
 
         try{
-            $cliente = Cliente::create($request->all());
-            if(!$cliente){
+            $foto = $request->file('foto');
+            $nomeArquivo = time()."_".$foto->getClientOriginalName();
+            $foto->move('fotos', $nomeArquivo);
+            $url = URL::asset('fotos/'.$nomeArquivo);
+            $parameters = $request->all();
+            $parameters['foto'] = $url;
+            
+            $produto = Produto::create($parameters);
+            if(!$produto){
                 return response()->json([], 400);
             }
-            return response()->json($cliente, 200);
+            return response()->json($produto, 200);
         }catch(Exception $e){
             return response()->json([], 400);
         }
@@ -43,12 +45,12 @@ class ClienteController extends Controller
         ]);
 
         try{
-            $cliente = Cliente::find($request->id);
+            $produto = Produto::find($request->id);
             $status = 200;
-            if(!$cliente){
+            if(!$produto){
                 $status = 404;
             }
-            return response()->json($cliente, $status);
+            return response()->json($produto, $status);
         }catch(Exception $e){
             return response()->json([], 400);
         }
@@ -61,7 +63,7 @@ class ClienteController extends Controller
         $this->validate($request, [
             'id' => 'required|integer',
             'nome' => 'max:255',
-            'email' => 'email|unique:clientes|max:255',
+            'email' => 'email|unique:Produtos|max:255',
             'telefone' => 'max:11',
             'data_nascimento' => 'date|date_format:Y-m-d|max:10',
             'endereco' => 'max:255',
@@ -72,17 +74,17 @@ class ClienteController extends Controller
         ]);
 
         try{
-            $cliente = Cliente::find($request->id);
-            if(!$cliente){
-                return response()->json($cliente, 404);
+            $produto = Produto::find($request->id);
+            if(!$produto){
+                return response()->json($produto, 404);
             }
     
-            $cliente->fill($request->all());
+            $produto->fill($request->all());
     
-            if(!$cliente->save()){
-                return response()->json($cliente, 400);
+            if(!$produto->save()){
+                return response()->json($produto, 400);
             }
-            return response()->json($cliente, 200);
+            return response()->json($produto, 200);
         }catch(Exception $e){
             return response()->json([], 400);
         }
@@ -92,12 +94,12 @@ class ClienteController extends Controller
     public function index()
     {
         try{
-            $clientes = Cliente::where('ativo', 1)->get();
+            $produtos = Produto::where('ativo', 1)->get();
             $status = 200;
-            if(!count($clientes) > 0){
+            if(!count($produtos) > 0){
                 $status = 404;
             }
-            return response()->json($clientes, $status);
+            return response()->json($produtos, $status);
         }catch(Exception $e){
             return response()->json([], 400);
         }
@@ -111,12 +113,12 @@ class ClienteController extends Controller
         ]);
 
         try{
-            $cliente = Cliente::find($request->id);
-            if(!$cliente){
-                return response()->json($cliente, 404);
+            $produto = Produto::find($request->id);
+            if(!$produto){
+                return response()->json($produto, 404);
             }
-            $cliente->ativo = 0;
-            if(!$cliente->save()){
+            $produto->ativo = 0;
+            if(!$produto->save()){
                 return response()->json([], 400);
             }
             return response()->json([], 200);

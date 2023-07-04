@@ -27,6 +27,20 @@ $router->get('/cliente/{id}', 'ClienteController@show');
 $router->put('/cliente/{id}', 'ClienteController@update');
 $router->delete('/cliente/{id}', 'ClienteController@delete');
 
+//PRODUTOS
+$router->get('/produto', 'ProdutoController@index');
+$router->post('/produto', 'ProdutoController@create');
+$router->get('/produto/{id}', 'ProdutoController@show');
+$router->put('/produto/{id}', 'ProdutoController@update');
+$router->delete('/produto/{id}', 'ProdutoController@delete');
+
+//PEDIDOS
+$router->get('/pedido', 'PedidoController@index');
+$router->post('/pedido', 'PedidoController@create');
+$router->get('/pedido/{id}', 'PedidoController@show');
+$router->put('/pedido/{id}', 'PedidoController@update');
+$router->delete('/pedido/{id}', 'PedidoController@delete');
+
 
 
 
