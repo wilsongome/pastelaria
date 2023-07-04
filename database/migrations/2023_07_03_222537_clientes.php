@@ -18,9 +18,10 @@ return new class extends Migration
             $table->char('telefone', 11);
             $table->date('data_nascimento');
             $table->char('endereco', 255);
-            $table->char('complemento', 255);
+            $table->char('complemento', 255)->nullable();
             $table->char('bairro', 255);
             $table->char('cep', 9);
+            $table->boolean('ativo')->default(1);
             $table->timestamps();
         });
     }

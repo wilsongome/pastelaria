@@ -18,6 +18,7 @@ return new class extends Migration
             $table->char('foto', 255);
             $table->bigInteger('tipo_produto_id', false, true);
             $table->foreign("tipo_produto_id")->references("id")->on("tipo_produtos")->onDelete("RESTRICT");
+            $table->boolean('ativo')->default(1);
         });
     }
 

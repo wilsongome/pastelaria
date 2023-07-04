@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign("pedido_id")->references("id")->on("pedidos")->onDelete("RESTRICT");
             $table->bigInteger('produto_id', false, true);
             $table->foreign("produto_id")->references("id")->on("produtos")->onDelete("RESTRICT");
-
         });
     }
 

@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use FastRoute\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,6 +15,18 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+/* $router->get('/', function () use ($router) {
     return $router->app->version();
-});
+}); */
+
+
+//CLIENTES
+$router->get('/cliente', 'ClienteController@index');
+$router->post('/cliente', 'ClienteController@create');
+$router->get('/cliente/{id}', 'ClienteController@show');
+$router->put('/cliente/{id}', 'ClienteController@update');
+$router->delete('/cliente/{id}', 'ClienteController@delete');
+
+
+
+

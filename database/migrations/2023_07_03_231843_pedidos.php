@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('cliente_id', false, true);
             $table->foreign("cliente_id")->references("id")->on("clientes")->onDelete("RESTRICT");
+            $table->boolean('ativo')->default(1);
             $table->timestamps();
         });
     }
