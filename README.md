@@ -52,7 +52,7 @@ php -S localhost:8000 -t public
 2) Ajustando o VIRTUAL HOST do Apache
  - Habilitar o MOD REWRITE do Apache
  - Alterar o Virtual host, apontando para a aplicação conforme exemplo abaixo
- - Reiniciar o apache (restart / reload) service httpd ou service apache2 restar/reload
+ - Reiniciar o apache (restart / reload) service httpd ou service apache2 restart/reload
  
  Exemplo:
 <VirtualHost *:80>
