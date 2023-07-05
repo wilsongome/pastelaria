@@ -51,6 +51,10 @@ class PedidoController extends Controller
             }
             $pedidoProdutoController = new PedidoProdutoController();
             $pedidoProdutos = $pedidoProdutoController->salvarProdutos($pedido->id, $produtos);
+            if($pedidoProdutos["quantidade"] == 0){
+                $pedido->delete();
+                return response()->json([], 400);
+            }
             $pedido->cliente = $cliente;
             $pedido->detalhamento = $pedidoProdutos;
             $pedidoEmailController = new PedidoEmailController();
