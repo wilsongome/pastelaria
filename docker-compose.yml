@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  apache:
+    image: 'php:8.1-apache'
+    container_name: web_service
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+
+  mysqldb:
+    container_name: mysql_db
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=pastelaria
