@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pedido_produtos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('pedido_id', false, true);
-            $table->foreign("pedido_id")->references("id")->on("pedidos")->onDelete("RESTRICT");
+            $table->foreign("pedido_id")->references("id")->on("pedidos")->onDelete("CASCADE");
             $table->bigInteger('produto_id', false, true);
-            $table->foreign("produto_id")->references("id")->on("produtos")->onDelete("RESTRICT");
+            $table->foreign("produto_id")->references("id")->on("produtos")->onDelete("CASCADE");
             $table->timestamps();
         });
     }
