@@ -115,6 +115,9 @@ php -S localhost:8000 -t public
   5) Se seguiu todos os passos corretamente, a aplicação deve estar no ar. Utilize a Collection do POSTMAN para testar a aplicação, atendando para a porta de execução.
   - Exemplo: Por padrão está na 8080 então fazer a chamada para (http://localhost:8080/produto/), se alterar para a porta 80, então não precisa informar (http://localhost/produto/)
 
+IMPORTANTE: O banco de dados será APAGADO a cada reinicialização da aplicação, então caso queira manter os dados, basta descomentar o seguinte trecho do arquivo docker-compose.yml
+#volumes:
+    #  - ./db:/var/lib/mysql
 
  Caso tenham alguma dúvida em executar a aplicação, não exitem em me chamar: wilsongome@gmail.com
 
