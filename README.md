@@ -74,7 +74,7 @@ Pode executar essa aplicação de duas formas simples:
         # match this virtual host. For the default virtual host (this file) this
         # value is not decisive as it is used as a last resort host regardless.
         # However, you must set it for any further virtual host explicitly.
-        #ServerName www.example.com
+        #ServerName www.pastelaria.local
 
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html/pastelaria/public
@@ -106,9 +106,9 @@ Pode executar essa aplicação de duas formas simples:
  2) Navegue até o diretório raiz da aplicação
 
  3) Execute: 
-  - docker compose up --build -d
+  - ```docker compose up --build -d```
   - Aguarde até que que a operação seja completada totalmente, na primeira execução pode levar alguns minutos
-  - Se precisar parar os containers e quiser executar novamente de forma mais rápida, apenas use o comando docker compose up -d
+  - Se precisar parar os containers e quiser executar novamente de forma mais rápida, apenas use o comando docker ```compose up -d```
 
   4) Com os serviços em execução, precisaremos configurar a aplicação com os seguintes passos:
   - ```docker exec webservice cp .env.example .env``` (Para criar o .env da aplicação)
@@ -132,7 +132,7 @@ IMPORTANTE: O banco de dados será APAGADO a cada reinicialização da aplicaç�
 ...que contém todos os métodos disponíveis na aplicação, seguindo o padrão REST.
 
 2) A aplicação também possui testes automatizados, e para executar, basta rodar o seguinte comando, estando no diretório raíz da aplicação:
- vendor/bin/phpunit
+ ```vendor/bin/phpunit```
 
 
 ## Endpoints da aplicação
