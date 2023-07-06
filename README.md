@@ -60,6 +60,7 @@ Pode executar essa aplicação de duas formas simples:
 
 2) Ajustando o VIRTUAL HOST do Apache
  - Habilitar o MOD REWRITE do Apache
+  ```a2enmod rewrite ```
  - Alterar o Virtual host, apontando para a aplicação conforme exemplo abaixo
  - Reiniciar o apache (restart / reload) 
  ```service httpd restart``` ou ```service apache2 restart```
