@@ -32,7 +32,7 @@ Basicamente você tem 3 entidades principais na aplicação (Cliente, Produtos, 
 Ao gerar um pedido, ela vai disparar um e-mail com os dados do pedido para o e-mail cadastrado do cliente.
 
 
-## Como configurar a aplicação (Rodando Direto na Mánquina)
+## Como configurar a aplicação (Rodando Direto na Máquina)
 Uma vez clonado o repositório, precisamos preparar a aplicação antes da execução
 
 1) Executar o composer para baixar os pacotes
