@@ -36,33 +36,37 @@ Ao gerar um pedido, ela vai disparar um e-mail com os dados do pedido para o e-m
 Uma vez clonado o repositório, precisamos preparar a aplicação antes da execução
 
 1) Executar o composer para baixar os pacotes
-composer update/install
+```composer update/install```
 
 2) Criar um banco de dados no MySQL para a aplicação, exemplo: pastelaria
-create schema pastelaria;
+```create schema pastelaria;```
 Criar um usuários com permissões para criar tabelas, e também os CRUDS no banco recém criado
 
 3) Criar um arquivo .env a partir do arquivo .env.example na raíz da aplicação, e preencher as informações de acesso ao banco de dados e também do e-mail (A aplicação dispara e-mails por SMTP)
+Se estiver no Linux, então:
+```cp .env.example .env```
 
 4) Executar o comando do ARTISAN para gerar as tabelas
-php artisan migrate
+```php artisan migrate```
 
 5) Executar o comando do ARTISAN para gerar os SEEDs (Tabela tipo de produtos pré definidos)
 (id:1 = Pastel, id:2 = Salgado, id:3 = Bebida)
-php artisan db:seed
+```php artisan db:seed```
 
 ## Como executar a aplicação
 Pode executar essa aplicação de duas formas simples:
 1) Utlizando o serviço do PHP e definindo a porta, conforme abaixo
-php -S localhost:80 -t public
+```php -S localhost:80 -t public```
 
 2) Ajustando o VIRTUAL HOST do Apache
  - Habilitar o MOD REWRITE do Apache
  - Alterar o Virtual host, apontando para a aplicação conforme exemplo abaixo
- - Reiniciar o apache (restart / reload) service httpd ou service apache2 restart/reload
+ - Reiniciar o apache (restart / reload) 
+ ```service httpd restart``` ou ```service apache2 restart```
  
  Exemplo:
-<VirtualHost *:80>
+ ```
+ <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
         # the server uses to identify itself. This is used when creating
         # redirection URLs. In the context of virtual hosts, the ServerName
@@ -91,6 +95,7 @@ php -S localhost:80 -t public
         # after it has been globally disabled with "a2disconf".
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
+```
 
  ## Como configurar a aplicação (Docker)
  
@@ -106,23 +111,25 @@ php -S localhost:80 -t public
   - Se precisar parar os containers e quiser executar novamente de forma mais rápida, apenas use o comando docker compose up -d
 
   4) Com os serviços em execução, precisaremos configurar a aplicação com os seguintes passos:
-  - docker exec webservice cp .env.example .env (Para criar o .env da aplicação)
-  - docker exec webservice composer install (Para instalar as dependências)
-  - docker exec webservice chown -R www-data:www-data /var/www/html (Para ajustar permissões)
-  - docker exec webservice chmod 775 -R /var/www/html (Para ajustar permissões)
-  - docker exec webservice php artisan migrate (Para criar as tabelas no banco de dados)
-  - docker exec webservice php artisan db:seed (Para criar registros iniciais da tabela)
+  - ```docker exec webservice cp .env.example .env``` (Para criar o .env da aplicação)
+  - ```docker exec webservice composer install``` (Para instalar as dependências)
+  - ```docker exec webservice chown -R www-data:www-data /var/www/html``` (Para ajustar permissões)
+  - ```docker exec webservice chmod 775 -R /var/www/html``` (Para ajustar permissões)
+  - ```docker exec webservice php artisan migrate``` (Para criar as tabelas no banco de dados)
+  - ```docker exec webservice php artisan db:seed``` (Para criar registros iniciais da tabela)
 
   5) Se seguiu todos os passos corretamente, a aplicação deve estar no ar. Utilize a Collection do POSTMAN para testar a aplicação, atendando para a porta de execução.
   - Exemplo: Por padrão está na 8080 então fazer a chamada para (http://localhost:8080/produto/), se alterar para a porta 80, então não precisa informar (http://localhost/produto/)
 
 IMPORTANTE: O banco de dados será APAGADO a cada reinicialização da aplicação, então caso queira manter os dados, basta descomentar o seguinte trecho do arquivo docker-compose.yml
 #volumes:
-    #  - ./db:/var/lib/mysql
+   **#  - ./db:/var/lib/mysql**
 
 
 ## Como testar a aplicação
-1) A aplicação não possui frontend, apenas APIs. Logo precisará testar chamando essas APIs autilizando algum cliente, e para facilitar eu deixei pronto uma collection do POSTMAN na raíz do projeto, chamado: Pastelaria - LUMEN.postman_collection.json que contém todos os métodos disponíveis na aplicação, seguindo o padrão REST.
+1) A aplicação não possui frontend, apenas APIs. Logo precisará testar chamando essas APIs autilizando algum cliente, e para facilitar eu deixei pronto uma collection do POSTMAN na raíz do projeto, chamado: 
+**Pastelaria - LUMEN.postman_collection.json**
+...que contém todos os métodos disponíveis na aplicação, seguindo o padrão REST.
 
 2) A aplicação também possui testes automatizados, e para executar, basta rodar o seguinte comando, estando no diretório raíz da aplicação:
  vendor/bin/phpunit
@@ -138,72 +145,72 @@ Métodos de atualização/exclusão retornam 200 ou algum código de erro 4xx. P
 Métodos de criação retornarão 201 ou algum código de erro 4xx
 
 # Clientes
-GET
+**GET**
 http://localhost/cliente/
 Retorna uma lista de clientes
 
-GET
+**GET**
 http://localhost/cliente/{id}
 Retorna um cliente dado o ID, ou vazio caso não encontre
 
-PUT
+**PUT**
 http://localhost/cliente/{id}
 Atualiza um cliente, dado o ID
 
-POST
+**POST**
 http://localhost/cliente/
 Cria um novo cliente na aplicação
 
-DELETE
+**DELETE**
 http://localhost/cliente/{id}
 Deleta um cliente, dado o ID
 
 # Produtos
-GET
+**GET**
 http://localhost/produto/
 Retorna uma lista de produtos
 
-GET
+**GET**
 http://localhost/produto/{id}
 Retorna um produto dado o ID, ou vazio caso não encontre
 
-PUT
+**PUT**
 http://localhost/produto/{id}
 Atualiza um produto, dado o ID
 
-POST
+**POST**
 http://localhost/produto/
 Cria um novo produto na aplicação
 
-DELETE
+**DELETE**
 http://localhost/produto/{id}
 Deleta um produto, dado o ID
 
 
 # Pedidos
-GET
+**GET**
 http://localhost/pedido/
 Retorna uma lista de pedidos
 
-GET
+**GET**
 http://localhost/pedido/{id}
 Retorna um pedido dado o ID, ou vazio caso não encontre
 
-PUT
+**PUT**
 http://localhost/pedido/{id}
 Atualiza um pedido, dado o ID
 
-POST
+**POST**
 http://localhost/pedido/
 Cria um novo pedido na aplicação
 
-DELETE
+**DELETE**
 http://localhost/pedido/{id}
 Deleta um pedido, dado o ID
 
 
-## Ficou alguma dúvida?
- Caso tenham alguma dúvida em executar a aplicação, podem me chamar: wilsongome@gmail.com
+### Ficou alguma dúvida?
+ Caso tenham alguma dúvida em executar a aplicação, podem me chamar: **wilsongome@gmail.com**
 
 
 
