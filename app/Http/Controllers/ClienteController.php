@@ -28,7 +28,7 @@ class ClienteController extends Controller
             if(!$cliente){
                 return response()->json([], 400);
             }
-            return response()->json($cliente, 200);
+            return response()->json($cliente, 201);
         }catch(Exception $e){
             return response()->json([], 400);
         }

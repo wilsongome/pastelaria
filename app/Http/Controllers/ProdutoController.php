@@ -30,7 +30,7 @@ class ProdutoController extends Controller
             if(!$produto){
                 return response()->json([], 400);
             }
-            return response()->json($produto, 200);
+            return response()->json($produto, 201);
         }catch(Exception $e){
             return response()->json([], 400);
         }

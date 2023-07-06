@@ -26,7 +26,13 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-## Como configurar a aplicação
+## Sobre a aplicação
+Trata-se de uma aplicação para geração de pedidos em uma Pastelaria. Ela contém apenas o Backend, disponibilizando as APIs.
+Basicamente você tem 3 entidades principais na aplicação (Cliente, Produtos, Pedidos)
+Ao gerar um pedido, ela vai disparar um e-mail com os dados do pedido para o e-mail cadastrado do cliente.
+
+
+## Como configurar a aplicação (Rodando Direto na Mánquina)
 Uma vez clonado o repositório, precisamos preparar a aplicação antes da execução
 
 1) Executar o composer para baixar os pacotes
@@ -41,13 +47,14 @@ Criar um usuários com permissões para criar tabelas, e também os CRUDS no ban
 4) Executar o comando do ARTISAN para gerar as tabelas
 php artisan migrate
 
-5) Executar o comando do ARTISAN para gerar os SEEDs
+5) Executar o comando do ARTISAN para gerar os SEEDs (Tabela tipo de produtos pré definidos)
+(id:1 = Pastel, id:2 = Salgado, id:3 = Bebida)
 php artisan db:seed
 
 ## Como executar a aplicação
 Pode executar essa aplicação de duas formas simples:
 1) Utlizando o serviço do PHP e definindo a porta, conforme abaixo
-php -S localhost:8000 -t public
+php -S localhost:80 -t public
 
 2) Ajustando o VIRTUAL HOST do Apache
  - Habilitar o MOD REWRITE do Apache
@@ -85,17 +92,11 @@ php -S localhost:8000 -t public
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 
-## Como testar a aplicação
-1) A aplicação não possui frontend, apenas APIs. Logo precisará testar chamando essas APIs autilizando algum cliente, e para facilitar eu deixei pronto uma collection do POSTMAN na raíz do projeto, chamado: Pastelaria - LUMEN.postman_collection.json que contém todos os métodos disponíveis na aplicação, seguindo o padrão REST.
-
-2) A aplicação também possui testes automatizados, e para executar, basta rodar o seguinte comando, estando no diretório raíz da aplicação:
- ./vendor/bin/phpunit
-
- ## Docker 
+ ## Como configurar a aplicação (Docker)
  
  Para rodar a aplicação no Docker, siga os seguintes passos, uma vez que já tenha clonado o repositorio:
 
- 1) Certifique-se de ter o Docker e o Docker compose instalados em sua máquina
+ 1) Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina
 
  2) Navegue até o diretório raiz da aplicação
 
@@ -119,10 +120,90 @@ IMPORTANTE: O banco de dados será APAGADO a cada reinicialização da aplicaç�
 #volumes:
     #  - ./db:/var/lib/mysql
 
- Caso tenham alguma dúvida em executar a aplicação, podem me chamar: wilsongome@gmail.com
 
- "Feito é melhor do que perfeito!"
- Autor: Desconhecido
+## Como testar a aplicação
+1) A aplicação não possui frontend, apenas APIs. Logo precisará testar chamando essas APIs autilizando algum cliente, e para facilitar eu deixei pronto uma collection do POSTMAN na raíz do projeto, chamado: Pastelaria - LUMEN.postman_collection.json que contém todos os métodos disponíveis na aplicação, seguindo o padrão REST.
+
+2) A aplicação também possui testes automatizados, e para executar, basta rodar o seguinte comando, estando no diretório raíz da aplicação:
+ vendor/bin/phpunit
+
+
+## Endpoints da aplicação
+
+Todas as APIs retornarão os registros no formato JSON
+Métodos de busca "GET" sempre devem retornar 200 ou 404
+
+Métodos de atualização/exclusão retornam 200 ou algum código de erro 4xx. Podem retornar 404 caso não encontre o registro também
+
+Métodos de criação retornarão 201 ou algum código de erro 4xx
+
+# Clientes
+GET
+http://localhost/cliente/
+Retorna uma lista de clientes
+
+GET
+http://localhost/cliente/{id}
+Retorna um cliente dado o ID, ou vazio caso não encontre
+
+PUT
+http://localhost/cliente/{id}
+Atualiza um cliente, dado o ID
+
+POST
+http://localhost/cliente/
+Cria um novo cliente na aplicação
+
+DELETE
+http://localhost/cliente/{id}
+Deleta um cliente, dado o ID
+
+# Produtos
+GET
+http://localhost/produto/
+Retorna uma lista de produtos
+
+GET
+http://localhost/produto/{id}
+Retorna um produto dado o ID, ou vazio caso não encontre
+
+PUT
+http://localhost/produto/{id}
+Atualiza um produto, dado o ID
+
+POST
+http://localhost/produto/
+Cria um novo produto na aplicação
+
+DELETE
+http://localhost/produto/{id}
+Deleta um produto, dado o ID
+
+
+# Pedidos
+GET
+http://localhost/pedido/
+Retorna uma lista de pedidos
+
+GET
+http://localhost/pedido/{id}
+Retorna um pedido dado o ID, ou vazio caso não encontre
+
+PUT
+http://localhost/pedido/{id}
+Atualiza um pedido, dado o ID
+
+POST
+http://localhost/pedido/
+Cria um novo pedido na aplicação
+
+DELETE
+http://localhost/pedido/{id}
+Deleta um pedido, dado o ID
+
+
+## Ficou alguma dúvida?
+ Caso tenham alguma dúvida em executar a aplicação, podem me chamar: wilsongome@gmail.com
 
 
 

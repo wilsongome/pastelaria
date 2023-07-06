@@ -35,7 +35,7 @@ class PedidoTest extends TestCase
                 'produtos' => '[1, 2, 3]'
                 ]
         );
-        $this->assertResponseStatus(200, "HTTP status code must be 200.");
+        $this->assertResponseStatus(201, "HTTP status code must be 200.");
     }
 
     public function test_store_request_error(): void

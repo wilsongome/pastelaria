@@ -35,7 +35,7 @@ class ClienteTest extends TestCase
                 'cep' => '08295-410',
                 'bairro' => 'Itaquera',
             ]);
-        $this->assertResponseStatus(200, "HTTP status code must be 200.");
+        $this->assertResponseStatus(201, "HTTP status code must be 200.");
     }
 
     public function test_store_request_error(): void

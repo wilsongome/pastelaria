@@ -59,7 +59,7 @@ class PedidoController extends Controller
             $pedido->detalhamento = $pedidoProdutos;
             $pedidoEmailController = new PedidoEmailController();
             $pedidoEmailController->enviarEmail($pedido);
-            return response()->json($pedido, 200);
+            return response()->json($pedido, 201);
         }catch(Exception $e){
             return response()->json([], 400);
         }
