@@ -92,9 +92,29 @@ php -S localhost:8000 -t public
  ./vendor/bin/phpunit
 
  ## Docker 
- Embora estivesse no requisito, infelizmente ainda não consegui colocar a aplicação para rodar em container, o que facilitaria bastante nos testes. Isso foi devido a falta de tempo mesmo.
  
- De toda forma, e independente do resultado do processo, pretendo seguir com esse projeto até o fim para que fique no meu GIT como portifólio, inclusive melhorando a arquitetura.
+ Para rodar a aplicação no Docker, siga os seguintes passos, uma vez que já tenha clonado o repositorio:
+
+ 1) Certifique-se de ter o Docker e o Docker compose instalados em sua máquina
+
+ 2) Navegue até o diretório raiz da aplicação
+
+ 3) Execute: 
+  - docker compose up --build -d
+  - Aguarde até que que a operação seja completada totalmente, na primeira execução pode levar alguns minutos
+  - Se precisar parar os containers e quiser executar novamente de forma mais rápida, apenas use o comando docker compose up -d
+
+  4) Com os serviços em execução, precisaremos configurar a aplicação com os seguintes passos:
+  - docker exec webservice cp .env.example .env (Para criar o .env da aplicação)
+  - docker exec webservice composer install (Para instalar as dependências)
+  - docker exec webservice chown -R www-data:www-data /var/www/html (Para ajustar permissões)
+  - docker exec webservice chmod 775 -R /var/www/html (Para ajustar permissões)
+  - docker exec webservice php artisan migrate (Para criar as tabelas no banco de dados)
+  - docker exec webservice php artisan db:seed (Para criar registros iniciais da tabela)
+
+  5) Se seguiu todos os passos corretamente, a aplicação deve estar no ar. Utilize a Collection do POSTMAN para testar a aplicação, atendando para a porta de execução.
+  - Exemplo: Por padrão está na 8080 então fazer a chamada para (http://localhost:8080/produto/), se alterar para a porta 80, então não precisa informar (http://localhost/produto/)
+
 
  Caso tenham alguma dúvida em executar a aplicação, não exitem em me chamar: wilsongome@gmail.com
 

@@ -1,25 +1,36 @@
-version: '3'
-
-services:
-  apache:
-    image: 'php:8.1-apache'
-    container_name: web_service
+version: '3.7'
+services: 
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    networks:
+      - my-networks
+    image: 'lumen'
+    container_name: webservice
     restart: always
     ports:
-      - '80:80'
+      - 8080:80
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/
     depends_on:
-      - mysqldb
+      - db
     links:
-      - mysqldb
-
-  mysqldb:
-    container_name: mysql_db
+      - db
+  db:
     image: mysql:5.7
+    container_name: database
     restart: always
-    ports:
-      - '3307:3306'
+    ports: 
+      - "3307:3306"
+    networks:
+    - my-networks
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=pastelaria
+      MYSQL_DATABASE: 'pastelaria'
+      #MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: "root"
+    #volumes:
+    #  - ./db:/var/lib/mysql
+networks:
+  my-networks:
+    driver: bridge
