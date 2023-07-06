@@ -119,7 +119,7 @@ IMPORTANTE: O banco de dados será APAGADO a cada reinicialização da aplicaç�
 #volumes:
     #  - ./db:/var/lib/mysql
 
- Caso tenham alguma dúvida em executar a aplicação, não exitem em me chamar: wilsongome@gmail.com
+ Caso tenham alguma dúvida em executar a aplicação, podem me chamar: wilsongome@gmail.com
 
  "Feito é melhor do que perfeito!"
  Autor: Desconhecido
